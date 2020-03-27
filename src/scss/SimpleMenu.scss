@@ -1,0 +1,33 @@
+.header__logo{
+    padding-left: 30px;
+    padding-top: 6px;
+    padding-bottom: 17px;
+    img{
+        vertical-align: middle;
+        width: 28px;
+    }
+    span{
+        padding-left: 9px;
+        vertical-align: middle;
+        letter-spacing: 2.7px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+}
+button{
+    height: auto;
+    width: auto;
+    img {
+        margin-top: -5px;
+        padding-left: 8px;
+        width: auto;
+        height: 15px;
+    }
+}
+@media (max-width: 767px){
+    .header__logo{
+        padding-left: 16px;
+        padding-top: 0px;
+        padding-bottom: 5px;
+    }
+}

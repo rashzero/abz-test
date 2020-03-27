@@ -1,51 +1,103 @@
+font-face {
+    font-family: 'Open Sans';
+    src: url('../static/OpenSans-Regular.ttf'),
+}
 body{
+    font-family: 'Open Sans';
     margin: auto;
     padding: 0;
     .header{
         position: fixed;
         width: 100%;
         max-width: 2560px;
-        height: 70px;
+        height: 60px;
         display: grid;
         grid-template-columns: 1fr 1fr;
+        grid-auto-columns: minmax(150px, auto);
         grid-auto-rows: minmax(40px, auto);
         background-color: #fff;
         .header__logo{
-            padding-left: 30px;
+            padding-left: 31px;
             padding-top: 15px;
             img{
                 vertical-align: middle;
+                height: 28px;
             }
             span{
-                padding-left: 10px;
+                padding-left: 9px;
                 vertical-align: middle;
-                letter-spacing: 3px;
-                font-size: 24px;
-                line-height: 29px;
+                letter-spacing: 2.7px;
+                font-size: 17px;
+                font-weight: bold;
             }
         }
         .header__tabs-panel{
-            margin-right: 0;
-            width: 470px;
-            margin-left: auto;
+            margin-right: 15px;
+            width: auto;
+            text-align: right;
+            padding-top: 1px;
             button{
                 width: auto;
                 height: 100%;
-                margin-left: 10px;
-                padding: 0;
-                margin-right: 10px;
+                margin-left: 15px;
+                //padding: 8px 7px;
+                margin-right: 14px;
                 border: none;
                 background-color: #fff;
                 outline: none;
                 cursor: pointer;
-                font-size: 16px;
+                font-size: 14px;
+                line-height: 24px;
+                font-style: 400px;
+                font-family: 'Open Sans';
             }
             button:hover {
                 color: #ef5b4c; 
             }
             button:active {
                 color: #007bff;
-              }
+            }
         }
+
+        .header__tabs-panel_mobail{
+            width: 97%;
+            text-align: right;
+            margin-right: 20px;
+            padding-top: 20px;
+            .header__tabs-panel_mobail{
+                vertical-align: middle;
+            }
+        }
+
+        @media (max-width: 1023px){
+            .header__tabs-panel{
+                display: none;
+            }
+        }
+
+        @media (min-width: 1024px){
+            .header__tabs-panel_mobail{
+                display: none;
+            }
+        }
+
+    }
+    @media (max-width: 767px){
+        .header{
+            height: 40px;
+            .header__logo{
+                padding-left: 16px;
+                padding-top: 6px;
+                img{
+                    vertical-align: middle;
+                    height: 28px;
+                }
+            }
+            .header__tabs-panel_mobail{
+                width: 100%;
+                padding-top: 10px;
+            }
+        }
+        
     }
 }

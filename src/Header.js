@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
+import SimpleMenu from './SimpleMenu';
 //import TabsPanel from './TabsPanel'
 import favicon from './static/favicon-32x32.png';
 import './scss/Header.scss'
-export default function Header() {
+export default function Header(props) {
     const [tabs, setTabs] = useState('');
 
 	const handleClick = (newValue) => {
         console.log(newValue);
         setTabs(newValue);
+        props.focusRegistration();
     };
     
-    const nameTabs = [ 'About me', 'Relationships', 'Requirements', 'Users', 'Sign up' ]; 
+    const nameTabs = [ 'About me', 'Relationships', 'Requirements', 'Users', 'Sign Up' ]; 
 
     const renderTabs = nameTabs.map((name) => (
         <button
@@ -34,6 +36,9 @@ export default function Header() {
                 className='header__tabs-panel'
             >
                 {renderTabs}
+            </div>
+            <div className='header__tabs-panel_mobail'>
+                <SimpleMenu focusRegistration={props.focusRegistration}/>
             </div>
         </div>
     );

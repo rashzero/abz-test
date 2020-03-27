@@ -3,11 +3,11 @@ import imgLaptop from './static/man-laptop-v1.svg';
 import Avatar from './Avatar';
 import ProgressCentered from './ProgressCentered';
 import ButtonAndDialog from './ButtonAndDialog';
-import './scss/Main.scss'
+import './scss/Main.scss';
 
 export default class extends React.Component {
 
-emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])$)";
+    emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])$)";
     registrationInput = [
         {
             name: 'Name',
@@ -30,7 +30,7 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
             maxlength: '100',
         },
         {
-            name: 'Phone',
+            name: 'Phone number',
             type: 'tel',
             id: 'phone',
             placeholder: '+380 XX XXX XX XX',
@@ -79,7 +79,15 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
             })
     }
 
-    getUsersRequest = (url = 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6') => {
+    urlForDescop = () => {
+        if( window.innerWidth < 768 ){
+            return 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=3'
+        } else {
+            return 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6'
+        }
+   }
+
+    getUsersRequest = (url = this.urlForDescop()) => {
         if (this.state.urlNextUsersPage === null) {
             return;
         }
@@ -99,9 +107,11 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
                         urlNextUsersPage: data.links.next_url,
                     });
                 } else {
-                    alert(data.message);
+                    if (data.message === 'Page not found');
                     this.setState({
                         isLoading: false,
+                        urlNextUsersPage: null,
+
                     });
                 }
             }) 
@@ -254,10 +264,10 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
             return (this.state.users.map((user) => (
                 <div className='main__body_users_card' key={user.id}>
                     <Avatar userImg={user.photo} />
-                    <div className='main__body_users_card_name'>{user.name}</div>
-                    <nav>{user.position}</nav>
-                    <nav>{user.email}</nav>
-                    <nav>{user.phone}</nav>
+                    <div className='main__body_users_card_name' title={user.name}><span>{user.name}</span></div>
+                    <div>{user.position}</div>
+                    <div title={user.email}>{user.email}</div>
+                    <div>{user.phone}</div>
                 </div>
             )))
         }
@@ -272,18 +282,22 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
             <div className="main">
                 <div className='main__header'>
                     <div className='main__header_text1'>
-                        TEST ASSIGMENT <br/> FOR FRONTEND <br/> DEVELOPER POSITION
+                        <span>TEST ASSIGNMENT</span> FOR FRONTEND DEVELOPER POSITION
                     </div>
                     <div className='main__header_text2'>
-                        We kindly remind you that your test assigment shouls be submitted 
-                        as a link github/bitbucket repository. Please be patient,we consider
-                        and respond to every application that meet minimum requirements.
+                        We kindly remind you that your test assignment should be submitted 
+                        as a link to github/bitbucket repository. Please be patient, we consider
+                        and respond to every application that meets minimum requirements.
                         We look forward to your submission. Good luck! The photo has to scale
                         in the banner area on the different screens
                     </div>
+                    <div className='main__header_text2-alt'>
+                        We kindly remind you that your test assignment should be submitted 
+                        as a link to github/bitbucket repository.
+                    </div>
                     <div>
-                        <button>
-                            Sign up now
+                        <button onClick={this.props.focusRegistration}>
+                            <span>Sing up now</span>
                         </button>
                     </div>
                 </div>
@@ -299,24 +313,25 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
                             <div className='main__body_container_content_text1'>
                                 I am cool frontend developer
                             </div>
-                            <div>
+                            <div className='main__body_container_content_text2'>
                                 We will evaluate how clean your approach to writing CSS and Javascript
-                                code is. You can use any CSS and javascript 3rd party libraries without anyrestriction.
+                                code is. You can use any CSS and javascript 3rd party libraries without any restriction.
                             </div>
-                            <div>
+                            <div className='main__body_container_content_text3'>
                                 If 3rd party css/javascriot libraries are added to the project via bower/npm/yarn
-                                you will get bonus points as well. Slice sevice directory page PSD mockup into 
+                                you will get bonus points. If you use any task runner (gulp/webpack) you will get bonus
+                                points as well. Slice service directory page PSD mockup into 
                                 HTML5/CSS3.
                             </div>
                             <div>
-                                <button>
-                                    Sign up now
+                                <button onClick={this.props.focusRegistration}>
+                                    Sing up now
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div className='main__body_users'>
-                        <div className='main__head_text'>
+                        <div className='main__body_users_text1'>
                             Our cheerful users
                         </div>
                         <div className='main__body_users_text2'>
@@ -324,40 +339,32 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
                         </div>
                         <div className='main__body_users_users'>
                             {this.usersLoading()}
-                            {/*{users.map((user) => (
-                                <div className='main__body_users_card' key={user.id}>
-                                    <Avatar userImg={user.photo} />
-                                    <div className='main__body_users_card_name'>{user.name}</div>
-                                    <nav>{user.position}</nav>
-                                    <nav>{user.email}</nav>
-                                    <nav>{user.phone}</nav>
-                                </div>
-                            ))}*/}
                         </div >
                         <div className='main__body_users_button'>
                             <button 
                                 onClick={() => this.getUsersRequest(this.state.urlNextUsersPage)}
                                 style={{ display: this.state.urlNextUsersPage === null?'none':'' }}
                             >
-                                Show more
+                                <span>Show more</span>
                             </button>
                         </div>
                     </div>
                     <div className='main__registration'>
-                        <div className='main__head_text'>
+                        <div className='main__registration_text1'>
                             Register to get a work
                         </div>
-                        <div className='main__registration_text'>
+                        <div className='main__registration_text2'>
                             Attention! After successful registration and alert, update the
                             list of users in the block from the top
                         </div>
                         <div>
                             <form>
                                 {this.registrationInput.map((input) => (
-                                    <div key={input.id} className={errors[input.id]?'main__registration_input':''}> 
+                                    <div key={input.id} className={errors[input.id]?'main__registration_input-error':''}> 
                                         <label>
                                             {input.name}<br/>
                                             <input 
+                                                ref={input.name === 'Name'?this.props.textInput:''}
                                                 type={input.type} 
                                                 placeholder={input.placeholder}
                                                 pattern={input.pattern}
@@ -365,7 +372,7 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
                                                 maxLength={input.maxlength}
                                                 onChange={(event) => this.handleChangeInput(event, input.id)}
                                                 required
-                                            /><br/>
+                                            /><br />
                                             <span>{errors[input.id]?errors[input.id]:input.helperText}</span> 
                                         </label>
                                     </div>
@@ -381,7 +388,7 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
                                         ))}
                                     </label>
                                 </div>
-                                <div>
+                                <div className='main__registration_photo'>
                                     <label>
                                         Photo<br/>
                                         <div className={errors.photo?'main__registration_form-error':'main__registration_form'}>
@@ -399,19 +406,17 @@ emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)
                                         <section>{errors.photo?errors.photo:''}</section>
                                     </label>
                                 </div>                               
-                                <div>
-                                    <center>
-                                        <ButtonAndDialog 
-                                            hendleClickRegistration={this.hendleClickRegistration}
-                                            getUsersRequest={this.getUsersRequest}
-                                        />
-                                    </center>
+                                <div className='main__registration_form_button'>
+                                    <ButtonAndDialog 
+                                        hendleClickRegistration={this.hendleClickRegistration}
+                                        getUsersRequest={this.getUsersRequest}
+                                    />
                                 </div>
                             </form>
                         </div>
                         <div className='main__footer'>
                             <hr/>
-                            abz.agency specially for the test task
+                           @ abz.agency specially for the test task
                         </div>
                     </div>
                 </div>
