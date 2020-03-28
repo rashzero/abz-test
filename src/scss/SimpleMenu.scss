@@ -24,6 +24,16 @@ button{
         height: 15px;
     }
 }
+
+.header__tabs-panel_mobail{
+    width: 97%;
+    text-align: right;
+    margin-right: 20px;
+    padding-top: 20px;
+    .header__tabs-panel_mobail{
+        vertical-align: middle;
+    }
+}
 @media (max-width: 767px){
     .header__logo{
         padding-left: 16px;

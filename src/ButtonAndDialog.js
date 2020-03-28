@@ -53,7 +53,7 @@ export default function ButtonAndDialog(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    const registrationStatus = props.hendleClickRegistration();
+    const registrationStatus = props.hendleRegistration();
     if (registrationStatus) {
       setOpen(registrationStatus)
     }

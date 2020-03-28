@@ -7,7 +7,8 @@ function App() {
 
   const focusRegistration = () => {
     textInput.current.focus();
-}
+  }
+  
   return (
     <div className="App">
       <Header focusRegistration={focusRegistration} />

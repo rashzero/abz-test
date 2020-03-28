@@ -8,6 +8,7 @@ import './scss/Main.scss';
 export default class extends React.Component {
 
     emailPattrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])$)";
+    fileInput = React.createRef();
     registrationInput = [
         {
             name: 'Name',
@@ -69,25 +70,23 @@ export default class extends React.Component {
 
     getPositionsRequest = () => {
         fetch('https://frontend-test-assignment-api.abz.agency/api/v1/positions')
-            .then((response) => {
-            return response.json();
-            })
-            .then((data) => {
+            .then(response => response.json())
+            .then(data => {
                 this.setState({
                     positions: data.positions,
-                })
-            })
+                });
+            });
     }
 
-    urlForDescop = () => {
+    urlForDesctop = () => {
         if( window.innerWidth < 768 ){
-            return 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=3'
+            return 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=3';
         } else {
-            return 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6'
+            return 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=6';
         }
    }
 
-    getUsersRequest = (url = this.urlForDescop()) => {
+    getUsersRequest = (url = this.urlForDesctop()) => {
         if (this.state.urlNextUsersPage === null) {
             return;
         }
@@ -100,7 +99,6 @@ export default class extends React.Component {
             })
             .then((data) => {
                 if(data.success) {
-                    console.log(data)
                     this.setState({
                         users: data.users,
                         isLoading: false,
@@ -111,7 +109,6 @@ export default class extends React.Component {
                     this.setState({
                         isLoading: false,
                         urlNextUsersPage: null,
-
                     });
                 }
             }) 
@@ -131,26 +128,28 @@ export default class extends React.Component {
 
     handleChangePhoto = (event) => {
         const newState = { ...this.state };
-        newState.errors = '';
+        newState.errors.photo = '';
         this.setState(newState);
-        const fileField = document.querySelector('input[type="file"]');
-        if (!fileField.files[0]) {
+        const fileField = this.fileInput.current.files[0];
+        let stateUpdated = {};
+        if (!fileField) {
             const newState = { ...this.state };
             newState.user.photo = '';
             newState.errors.photo = 'Upload your photo';
-            this.setState(newState);
+            stateUpdated = newState;
             return;
-        } else if (fileField.files[0].size > 5120000) {
+        } else if (fileField.size > 5120000) {
             const newState = { ...this.state };
-            newState.user.photo = fileField.files[0].name;
+            newState.user.photo = fileField.name;
             newState.errors.photo = 'Maximum size exceeded';
-            this.setState(newState);
+            stateUpdated = newState;
         } else {
             const newState = { ...this.state };
-            newState.user.photo = fileField.files[0].name;
+            newState.user.photo = fileField.name;
             newState.errors.photo = '';
-            this.setState(newState);
+            stateUpdated = newState;
         }
+        this.setState(stateUpdated);
     };
 
     getToken = () => {
@@ -159,25 +158,20 @@ export default class extends React.Component {
                 return response.json();
             })
             .then((data) => {
-                console.log(data.token)
-                return {token: data.token};
+                return { token: data.token };
             })
-            .catch((error) => console.log(error))
     }
 
     creatUser = (token) => {
         const formData = new FormData();
-        // file from input type='file'
-        const fileField = document.querySelector('input[type="file"]');
+        const fileField = this.fileInput.current.files[0];
         const { name, email, phone, position } = this.state.user;
         formData.append('position_id', position);
         formData.append('name', name);
         formData.append('email', email);
         formData.append('phone', phone);
-        formData.append('photo', fileField.files[0]);
+        formData.append('photo', fileField);
 
-        console.log(token);
-        console.log(formData);
         return (fetch('https://frontend-test-assignment-api.abz.agency/api/v1/users', {
             method: 'POST',
             body: formData,
@@ -185,76 +179,66 @@ export default class extends React.Component {
                 'Token': token, 
             },
         })
-            .then((response) => {
-                return response.json();
-            })
-            .then((data) => {
-                console.log(data);
-                if(data.success) {
-                    return true;
-                } else {
-                    // proccess server errors
-                }
-            })
-            .catch(function(error) {
-                // proccess network errors
-            }));
+            .then(response => response.json())
+        )
     }
 
-    hendleClickRegistration = () => {
-        const newState = { ...this.state };
+    validateRegistrationData() {
+        const stateValidated = { ...this.state };
         let error = false;
-            
-        if(this.state.user.name.length < 2 || this.state.user.name.length > 60) {
-            newState.errors.name = 'User name should contain 2-60 characters';
-            this.setState(newState);
+
+        if (this.state.user.name.length < 2 || this.state.user.name.length > 60) {
+            stateValidated.errors.name = 'User name should contain 2-60 characters';
             error = true;
         } else {
-            newState.errors.name = '';
-            this.setState(newState);
+            stateValidated.errors.name = '';
         }
         
-        if(!(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.user.email))) {
-            newState.errors.email = 'Invalid email.';
-            this.setState(newState);
+        if (!(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/.test(this.state.user.email))) {
+            stateValidated.errors.email = 'Invalid email.';
             error = true;
         } else {
-            newState.errors.email = '';
-            this.setState(newState);
+            stateValidated.errors.email = '';
         }
         
         if (!(/^[+]{0,1}380([0-9]{9})$/.test(this.state.user.phone))) {
-            newState.errors.phone = 'The phone format is invalid.';
-            this.setState(newState);
+            stateValidated.errors.phone = 'The phone format is invalid.';
             error = true;
         } else {
-            newState.errors.phone = '';
-            this.setState(newState);
+            stateValidated.errors.phone = '';
         }
         
         if (!this.state.user.position) {
-            newState.errors.position = 'Position not checked.';
-            this.setState(newState);
+            stateValidated.errors.position = 'Position not checked.';
             error = true;
         } else {
-            newState.errors.position = '';
-            this.setState(newState);
+            stateValidated.errors.position = '';
         }
 
         if (!this.state.user.photo) {
-            newState.errors.photo = 'No file chosen';
-            this.setState(newState);
+            stateValidated.errors.photo = 'No file chosen';
             error = true;
         } else {
-            newState.errors.photo = '';
-            this.setState(newState);
+            stateValidated.errors.photo = '';
+        }
+
+        return { error, stateValidated };
+    }
+
+    hendleRegistration = () => {
+        const { error, stateValidated } = this.validateRegistrationData();
+        if (error) {
+            this.setState(stateValidated);
+            return;
         }
         
-        if (!error){
-            this.getToken()
-                .then((res) => {this.creatUser(res.token)});
-            return true;
-        }
+        this.getToken()
+            .then(({ error, token }) => {
+                if (!error) {
+                    return this.creatUser(token);
+                }
+            });
+        return true;
     }
 
     usersLoading = () => {
@@ -275,8 +259,6 @@ export default class extends React.Component {
 
     render() {
         const { positions, errors } = this.state;
-
-        console.log(this.state);
 
         return (
             <div className="main">
@@ -400,6 +382,7 @@ export default class extends React.Component {
                                                 placeholder='No file chisen'
                                                 onChange={this.handleChangePhoto}
                                                 accept="image/jpeg"
+                                                ref={this.fileInput}
                                             />
                                             <span className='main__registration_form_text'>{this.state.user.photo?this.state.user.photo:'Upload your photo'}</span>
                                         </div>
@@ -408,7 +391,7 @@ export default class extends React.Component {
                                 </div>                               
                                 <div className='main__registration_form_button'>
                                     <ButtonAndDialog 
-                                        hendleClickRegistration={this.hendleClickRegistration}
+                                        hendleRegistration={this.hendleRegistration}
                                         getUsersRequest={this.getUsersRequest}
                                     />
                                 </div>
