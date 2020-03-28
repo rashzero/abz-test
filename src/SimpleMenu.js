@@ -41,7 +41,7 @@ const list = (classes, toggleDrawer, menuItemChenge, tabs) => (
         </span> 
     </div>
     <Divider />
-      {menuTextBloc1.map((text, index) => (
+      {menuTextBloc1.map((text) => (
         <ListItem button key={text} style={{ color: (tabs === text)?'#007bff':''}} onClick={() => menuItemChenge(text)}>
           <ListItemText primary={text} />
         </ListItem>
@@ -49,7 +49,7 @@ const list = (classes, toggleDrawer, menuItemChenge, tabs) => (
     </List>
     <Divider />
     <List>
-      {menuTextBloc2.map((text, index) => (
+      {menuTextBloc2.map((text) => (
         <ListItem button key={text} style={{ color: (tabs === text)?'#007bff':''}} onClick={() => menuItemChenge(text)}>
           <ListItemText primary={text} />
         </ListItem>
@@ -57,7 +57,7 @@ const list = (classes, toggleDrawer, menuItemChenge, tabs) => (
     </List>
     <Divider />
     <List>
-      {menuTextBloc3.map((text, index) => (
+      {menuTextBloc3.map((text) => (
         <ListItem button key={text} style={{ color: (tabs === text)?'#007bff':''}} onClick={() => menuItemChenge(text)}>
           <ListItemText primary={text} />
         </ListItem>
