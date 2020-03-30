@@ -1,3 +1,116 @@
+%form-registration-input{
+    width: 95%;
+    height: 36px;
+    margin-top: 10px;
+}
+
+%input-file-ok-and-error{
+    margin-bottom: 0px;
+    padding-left: 15px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+}
+
+%input-file-button-ok-and-error{
+    margin: 0;
+    float: right;
+    font-size: 15px;
+    height: 100%;
+    line-height: 20px;
+    overflow: hidden;
+    padding: 4px 10px;
+    text-align: center;
+    vertical-align: middle;
+    width: 50px;
+}
+
+%input-ratio{
+    margin-top: 21px;
+    margin-bottom: 10px;
+    $radioSize: 16px;
+    $radioBorder: #D1D7E3;
+    $radioActive: #5D9BFB;
+    padding-left: 15px;
+    p{
+        margin-bottom: 20px;
+    }
+    .main__registration_position_radio {
+        height: 20px;
+        padding-bottom: 10px;
+        span{
+            font-size: 16px;
+            line-height: 24px;
+        }
+        display: block;
+        cursor: pointer;
+        input {
+            display: none;
+            & + span {
+                line-height: $radioSize;
+                height: $radioSize;
+                padding-left: $radioSize;
+                display: block;
+                position: relative;
+                &:not(:empty) {
+                    padding-left: $radioSize + 8;
+                }
+                &:before,
+                &:after {
+                    content: '';
+                    width: $radioSize;
+                    height: $radioSize;
+                    display: block;
+                    border-radius: 50%;
+                    left: 0;
+                    top: 0;
+                    position: absolute;
+                }
+                &:before {
+                    background: $radioBorder;
+                    transition: background .2s ease, transform .4s cubic-bezier(.175, .885, .32, 2);
+                }
+                &:after {
+                    background: #fff;
+                    transform: scale(.78);
+                    transition: transform .6s cubic-bezier(.175, .885, .32, 1.4);
+                }
+            }
+            &:checked + span {
+                &:before {
+                    transform: scale(1.04);
+                    background: $radioActive;
+                }
+                &:after {
+                    transform: scale(.4);
+                    transition: transform .3s ease;
+                }
+            }
+        }
+        &:hover {
+            input {
+                & + span {
+                    &:before {
+                        transform: scale(.92);
+                    }
+                    &:after {
+                        transform: scale(.74);
+                    }
+                }
+                &:checked + span {
+                    &:after {
+                        transform: scale(.4);
+                    }
+                }
+            }
+        }
+    }
+}
+
 font-face {
     font-family: 'Open Sans';
     src: url('../static/OpenSans-Regular.ttf'),
@@ -28,189 +141,22 @@ font-face {
         padding-left: 10px;
         padding-right: 5px;
         .main__registration_position_error{
-            margin-top: 21px;
-            margin-bottom: 10px;
-            $radioSize: 16px;
-            $radioBorder: #D1D7E3;
-            $radioActive: #5D9BFB;
-            padding-left: 15px;
-            p{
-                margin-bottom: 20px;
-            }
-
-            .main__registration_position_radio {
-                height: 20px;
-                padding-bottom: 10px;
-                span{
-                    font-size: 16px;
-                    line-height: 24px;
-                }
-                display: block;
-                cursor: pointer;
-                input {
-                    display: none;
-                    & + span {
-                        line-height: $radioSize;
-                        height: $radioSize;
-                        padding-left: $radioSize;
-                        display: block;
-                        position: relative;
-                        &:not(:empty) {
-                            padding-left: $radioSize + 8;
-                        }
-                        &:before,
-                        &:after {
-                            content: '';
-                            width: $radioSize;
-                            height: $radioSize;
-                            display: block;
-                            border-radius: 50%;
-                            left: 0;
-                            top: 0;
-                            position: absolute;
-                        }
-                        &:before {
-                            background: $radioBorder;
-                            transition: background .2s ease, transform .4s cubic-bezier(.175, .885, .32, 2);
-                        }
-                        &:after {
-                            background: #fff;
-                            transform: scale(.78);
-                            transition: transform .6s cubic-bezier(.175, .885, .32, 1.4);
-                        }
-                    }
-                    &:checked + span {
-                        &:before {
-                            transform: scale(1.04);
-                            background: $radioActive;
-                        }
-                        &:after {
-                            transform: scale(.4);
-                            transition: transform .3s ease;
-                        }
-                    }
-                }
-                &:hover {
-                    input {
-                        & + span {
-                            &:before {
-                                transform: scale(.92);
-                            }
-                            &:after {
-                                transform: scale(.74);
-                            }
-                        }
-                        &:checked + span {
-                            &:after {
-                                transform: scale(.4);
-                            }
-                        }
-                    }
-                }
-            }
+            @extend %input-ratio;
             p{
                 color: #ff0404;
             }
         }
+        
         .main__registration_position{
-            font-family: 'Open Sans';
-            margin-top: 21px;
-            margin-bottom: 10px;
-            $radioSize: 16px;
-            $radioBorder: #D1D7E3;
-            $radioActive: #5D9BFB;
-            padding-left: 15px;
-            p{
-                margin-bottom: 20px;
-            }
-
-            .main__registration_position_radio {
-                height: 20px;
-                padding-bottom: 10px;
-                span{
-                    font-size: 16px;
-                    line-height: 24px;
-                }
-                display: block;
-                cursor: pointer;
-                input {
-                    display: none;
-                    & + span {
-                        line-height: $radioSize;
-                        height: $radioSize;
-                        padding-left: $radioSize;
-                        display: block;
-                        position: relative;
-                        &:not(:empty) {
-                            padding-left: $radioSize + 8;
-                        }
-                        &:before,
-                        &:after {
-                            content: '';
-                            width: $radioSize;
-                            height: $radioSize;
-                            display: block;
-                            border-radius: 50%;
-                            left: 0;
-                            top: 0;
-                            position: absolute;
-                        }
-                        &:before {
-                            background: $radioBorder;
-                            transition: background .2s ease, transform .4s cubic-bezier(.175, .885, .32, 2);
-                        }
-                        &:after {
-                            background: #fff;
-                            transform: scale(.78);
-                            transition: transform .6s cubic-bezier(.175, .885, .32, 1.4);
-                        }
-                    }
-                    &:checked + span {
-                        &:before {
-                            transform: scale(1.04);
-                            background: $radioActive;
-                        }
-                        &:after {
-                            transform: scale(.4);
-                            transition: transform .3s ease;
-                        }
-                    }
-                }
-                &:hover {
-                    input {
-                        & + span {
-                            &:before {
-                                transform: scale(.92);
-                            }
-                            &:after {
-                                transform: scale(.74);
-                            }
-                        }
-                        &:checked + span {
-                            &:after {
-                                transform: scale(.4);
-                            }
-                        }
-                    }
-                }
-            }
+            @extend %input-ratio;
         }
+
         .main__registration_photo{
             padding-left: 15px;
             .main__registration_form{
-                width: 95%;
-                height: 36px;
-                margin-top: 10px;
-                margin-bottom: 0px;
-                padding-left: 15px;
-                background-color: #FFFFFF;
+                @extend %form-registration-input;
+                @extend %input-file-ok-and-error;
                 border: 1px solid #bab9ba;
-                border-radius: 5px;
-                cursor: pointer;
-                overflow: hidden;
-                position: relative;
-                text-align: left;
-                vertical-align: middle;
                 .main__registration_form_text{
                     font-size: 15px;
                     color: #818080;
@@ -218,20 +164,9 @@ font-face {
             }
 
             .main__registration_form-error{
-                width: 95%;
-                height: 36px;
-                margin-top: 10px;
-                margin-bottom: 0px;
-                padding-left: 15px;
-                background-color: #FFFFFF;
+                @extend %form-registration-input;
+                @extend %input-file-ok-and-error;
                 border: 1px solid #ff0404;
-                border-radius: 5px;
-                cursor: pointer;
-                overflow: hidden;
-                position: relative;
-                text-align: left;
-                vertical-align: middle;
-                vertical-align: middle;
                 .main__registration_form_text{
                     font-size: 18px;
                     color: #818080;
@@ -249,17 +184,8 @@ font-face {
             }
 
             .main__registration_form-error .main__registration_button{
-                margin: 0;
+                @extend %input-file-button-ok-and-error;
                 background-color: #e5e0e0;
-                float: right;
-                font-size: 15px;
-                height: 100%;
-                line-height: 20px;
-                overflow: hidden;
-                padding: 4px 10px;
-                text-align: center;
-                vertical-align: middle;
-                width: 50px;
                 border-left: solid #ff0404 1px;
             }
 
@@ -278,17 +204,8 @@ font-face {
             }
 
             .main__registration_form .main__registration_button{
-                margin: 0;
+                @extend %input-file-button-ok-and-error;
                 background-color: rgb(235, 237, 238);
-                float: right;
-                font-size: 15px;
-                height: 100%;
-                line-height: 20px;
-                overflow: hidden;
-                padding: 4px 10px;
-                text-align: center;
-                vertical-align: middle;
-                width: 50px;
             }
 
             .main__registration_form #upload{
@@ -331,10 +248,8 @@ font-face {
             padding-left: 13px;
             font-size: 15px;
             input{
-                margin-top: 10px;
+                @extend %form-registration-input;
                 margin-bottom: 4px;
-                width: 95%;
-                height: 36px;
                 padding-left: 10px;
                 font-size: 14px;
                 border: solid 1px #bab9ba;
@@ -437,6 +352,5 @@ font-face {
                 }
             }
         }
-        
     }
 }

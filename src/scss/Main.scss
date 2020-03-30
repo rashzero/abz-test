@@ -1,3 +1,10 @@
+$primary-button-color: #ef5b4c;
+
+%head-text {
+    font-size: 50px;
+    line-height: 54px;
+}
+
 font-face {
     font-family: 'Open Sans';
     src: url('../static/OpenSans-Regular.ttf'),
@@ -14,7 +21,7 @@ body{
             margin-top: 13px;
             width: 210px;
             text-align: center;
-            background-color: #ef5b4c;
+            background-color: $primary-button-color;
             border-radius: 5px;
             border: 0;
             height: 38px;
@@ -39,8 +46,7 @@ body{
         .main__head_text{
             padding-top: 100px;
             text-align: center;
-            font-size: 50px;
-            line-height: 54px;
+            @extend %head-text;
         }
         .main__header{
             height: 600px;
@@ -54,16 +60,14 @@ body{
             .main__header_text1{
                 width: 520px;
                 padding-top: 107px;
-                font-size: 50px;
                 letter-spacing: -0.65px;
-                line-height: 54px;
+                @extend %head-text;
                 span{
                     letter-spacing: -0.4px;
                 }
             }
             .main__header_text2{
                 width: 530px;
-                font-size: 16px;
                 font-weight: 400;
                 line-height: 24px;
                 padding-top: 25px;
@@ -79,8 +83,7 @@ body{
             .main__head_text{
                 letter-spacing: -0.6px;
                 text-align: center;
-                font-size: 50px;
-                line-height: 54px;
+                @extend %head-text;
             }
             .main__body_container{
                 margin-top: 50px;
@@ -110,15 +113,13 @@ body{
                     }
                     .main__body_container_content_text2{
                         padding-right: 14.8px;
-                        font-size: 16px;
-                        line-height: 24px;
                         padding-top: 1px;
+                        line-height: 24px;
                     }
                     .main__body_container_content_text3{
                         padding-right: 14.8px;
-                        font-size: 16px;
-                        line-height: 24px;
                         padding-top: 24px;
+                        line-height: 24px;
                     }
  
                     button{
@@ -130,7 +131,7 @@ body{
                         background-color: #ffffff;
                         border: 0;
                         height: 40px;
-                        color: #ef5b4c;
+                        color: $primary-button-color;
                         font-size: 16px;
                         font-weight: bold;
                         outline: none;
@@ -148,8 +149,7 @@ body{
                     padding-top: 153px;
                     margin-right: 1px;
                     text-align: center;
-                    font-size: 50px;
-                    line-height: 54px;
+                    @extend %head-text;
                 }
                 .main__body_users_text2{
                     padding-top: 17px;
