@@ -1,18 +1,16 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Header from './Header';
 import Main from './Main';
 
 function App() {
-  const textInput = React.createRef();
-
+  const inputRef = useRef(null);
   const focusRegistration = () => {
-    textInput.current.focus();
-  }
-  
+    return inputRef.current.focus();
+  };
   return (
     <div className="App">
       <Header focusRegistration={focusRegistration} />
-      <Main focusRegistration={focusRegistration} textInput={textInput} />
+      <Main focusRegistration={focusRegistration} inputRef={inputRef} />
     </div>
   );
 }
