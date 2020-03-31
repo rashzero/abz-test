@@ -4,9 +4,7 @@ import Main from './Main';
 
 function App() {
   const inputRef = useRef(null);
-  const focusRegistration = () => {
-    return inputRef.current.focus();
-  };
+  const focusRegistration = () => inputRef.current.focus();
   return (
     <div className="App">
       <Header focusRegistration={focusRegistration} />

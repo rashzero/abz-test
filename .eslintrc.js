@@ -26,6 +26,10 @@ module.exports = {
     "parser": "babel-eslint",
     "rules": {
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/destructuring-assignment": 'off',
+        "react/state-in-constructor": 'off',
+        "class-methods-use-this": 'off',
+        "no-alert": 'off',
     }
 
 };

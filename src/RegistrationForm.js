@@ -33,36 +33,32 @@ export default function RegistrationForm({
             handleChangeInput={handleChangeInput}
           />
           <div className={errors.position ? 'main__registration_position_error' : 'main__registration_position'}>
-            <label>
-              <p>Select your position</p>
-              {positions.map((position) => (
-                <label className="main__registration_position_radio" key={position.id}>
-                  <input type="radio" name="position" value={position.id} onChange={handleChangePosition} />
-                  <span>{position.name}</span>
-                  <br />
-                </label>
-              ))}
-            </label>
+            <p>Select your position</p>
+            {positions.map((position) => (
+              <label className="main__registration_position_radio" key={position.id}>
+                <input type="radio" name="position" value={position.id} onChange={handleChangePosition} />
+                <span>{position.name}</span>
+                <br />
+              </label>
+            ))}
           </div>
           <div className="main__registration_photo">
-            <label>
-              Photo
-              <br />
-              <div className={errors.photo ? 'main__registration_form-error' : 'main__registration_form'}>
-                <div className="main__registration_button">Browse</div>
-                <input
-                  id="upload"
-                  type="file"
-                  name="upload"
-                  placeholder="No file chisen"
-                  onChange={handleChangePhoto}
-                  accept="image/jpeg"
-                  ref={fileInput}
-                />
-                <span className="main__registration_form_text">{user.photo ? user.photo : 'Upload your photo'}</span>
-              </div>
-              <section>{errors.photo ? errors.photo : ''}</section>
-            </label>
+            Photo
+            <br />
+            <div className={errors.photo ? 'main__registration_form-error' : 'main__registration_form'}>
+              <div className="main__registration_button">Browse</div>
+              <input
+                id="upload"
+                type="file"
+                name="upload"
+                placeholder="No file chisen"
+                onChange={handleChangePhoto}
+                accept="image/jpeg"
+                ref={fileInput}
+              />
+              <span className="main__registration_form_text">{user.photo ? user.photo : 'Upload your photo'}</span>
+            </div>
+            <section>{errors.photo ? errors.photo : ''}</section>
           </div>
           <div className="main__registration_form_button">
             <ButtonAndDialog

@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import imgLaptop from './static/man-laptop-v1.svg';
 import RegistratioForm from './RegistrationForm';
 import UserList from './UserList';
 import { validateRegData } from './Utils';
 import './scss/Main.scss';
 
-export default class extends React.Component {
+export default class Main extends React.Component {
     fileInput = React.createRef();
 
     state = {
@@ -32,12 +33,6 @@ export default class extends React.Component {
     componentDidMount() {
       this.getUsersRequest();
       this.getPositionsRequest();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-      if (this.state !== prevState) {
-        this.render();
-      }
     }
 
     getPositionsRequest = () => {
@@ -121,6 +116,7 @@ export default class extends React.Component {
         if (data) {
           return { token: data.token };
         }
+        return { error: 'error' };
       })
       .catch((error) => ({ error }))
 
@@ -156,7 +152,7 @@ export default class extends React.Component {
       }
 
       this.getToken()
-        .then(({ error, token }) => {
+        .then(({ token }) => {
           if (error) {
             alert(error);
             return;
@@ -210,12 +206,13 @@ export default class extends React.Component {
                 </div>
                 <div className="main__body_container_content_text2">
                   We will evaluate how clean your approach to writing CSS and Javascript
-                  code is. You can use any CSS and javascript 3rd party libraries without any restriction.
+                  code is. You can use any CSS and javascript 3rd party libraries without
+                  any restriction.
                 </div>
                 <div className="main__body_container_content_text3">
                   If 3rd party css/javascriot libraries are added to the project via bower/npm/yarn
-                  you will get bonus points. If you use any task runner (gulp/webpack) you will get bonus
-                  points as well. Slice service directory page PSD mockup into
+                  you will get bonus points. If you use any task runner (gulp/webpack) you will get
+                  bonus points as well. Slice service directory page PSD mockup into
                   HTML5/CSS3.
                 </div>
                 <div>
@@ -267,3 +264,8 @@ export default class extends React.Component {
       );
     }
 }
+
+Main.propTypes = {
+  focusRegistration: PropTypes.object,
+  inputRef: PropTypes.object,
+};
