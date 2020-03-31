@@ -162,6 +162,8 @@ body{
                     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                     grid-auto-columns: minmax(100px, auto);
                     margin: 38px 15px 0 15px;
+                    max-height: 800px;
+                    transition: max-height 0.25s ease-in;
                     .main__body_users_card{
                         text-align: center;
                         margin: 25px auto;
@@ -190,6 +192,14 @@ body{
                 }
                 .main__body_users_button{
                     text-align: center;
+                }
+
+                .main__body_users_button_disabled{
+                    text-align: center;
+                    button{
+                        background-color: #bbbbbb;
+                        color: #727272;
+                    }
                 }
             }
             

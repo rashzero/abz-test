@@ -33,51 +33,86 @@ export default function ListForMenu(props) {
       onClick={props.toggleDrawer('left', false)}
       onKeyDown={props.toggleDrawer('left', false)}
     >
-      <List>
+      <MenuText1 tabs={props.tabs} menuItemChenge={props.menuItemChenge}>
         <div className="header__logo">
           <img src={favicon} alt="icon" />
           <span>
             TESTTASK
           </span>
         </div>
-        <Divider />
-        {menuTextBloc1.map((text) => (
-          <ListItemForMenu
-            text={text}
-            tabs={props.tabs}
-            menuItemChenge={props.menuItemChenge}
-            key={text}
-          />
-        ))}
-      </List>
+      </MenuText1>
       <Divider />
-      <List>
-        {menuTextBloc2.map((text) => (
-          <ListItemForMenu
-            text={text}
-            tabs={props.tabs}
-            menuItemChenge={props.menuItemChenge}
-            key={text}
-          />
-        ))}
-      </List>
+      <MenuText2 tabs={props.tabs} menuItemChenge={props.menuItemChenge} />
       <Divider />
-      <List>
-        {menuTextBloc3.map((text) => (
-          <ListItemForMenu
-            text={text}
-            tabs={props.tabs}
-            menuItemChenge={props.menuItemChenge}
-            key={text}
-          />
-        ))}
-      </List>
+      <MenuText3 tabs={props.tabs} menuItemChenge={props.menuItemChenge} />
     </div>
+  );
+}
+
+function MenuText1(props) {
+  return (
+    <List>
+      {props.children}
+      {menuTextBloc1.map((text) => (
+        <ListItemForMenu
+          text={text}
+          tabs={props.tabs}
+          menuItemChenge={props.menuItemChenge}
+          key={text}
+        />
+      ))}
+    </List>
+  );
+}
+
+function MenuText2(props) {
+  return (
+    <List>
+      {menuTextBloc2.map((text) => (
+        <ListItemForMenu
+          text={text}
+          tabs={props.tabs}
+          menuItemChenge={props.menuItemChenge}
+          key={text}
+        />
+      ))}
+    </List>
+  );
+}
+
+function MenuText3(props) {
+  return (
+    <List>
+      {menuTextBloc3.map((text) => (
+        <ListItemForMenu
+          text={text}
+          tabs={props.tabs}
+          menuItemChenge={props.menuItemChenge}
+          key={text}
+        />
+      ))}
+    </List>
   );
 }
 
 ListForMenu.propTypes = {
   toggleDrawer: PropTypes.func.isRequired,
+  tabs: PropTypes.string.isRequired,
+  menuItemChenge: PropTypes.func.isRequired,
+};
+
+MenuText1.propTypes = {
+  children: PropTypes.object.isRequired,
+  tabs: PropTypes.string.isRequired,
+  menuItemChenge: PropTypes.func.isRequired,
+};
+
+MenuText2.propTypes = {
+  tabs: PropTypes.string.isRequired,
+  menuItemChenge: PropTypes.func.isRequired,
+};
+
+MenuText3.propTypes = {
   tabs: PropTypes.string.isRequired,
   menuItemChenge: PropTypes.func.isRequired,
 };

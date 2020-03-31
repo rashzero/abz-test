@@ -1,4 +1,4 @@
-export default function Utils(state) {
+export function validateRegData(state) {
   const { errors, user } = state;
   let error = false;
 

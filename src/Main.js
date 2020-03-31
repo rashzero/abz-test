@@ -1,51 +1,16 @@
 import React from 'react';
 import imgLaptop from './static/man-laptop-v1.svg';
-import ImageAvatars from './ImageAvatars';
-import ProgressCentered from './ProgressCentered';
 import RegistratioForm from './RegistrationForm';
-import Utils from './Utils';
+import UserList from './UserList';
+import { validateRegData } from './Utils';
 import './scss/Main.scss';
 
 export default class extends React.Component {
-    emailPatetrn = "^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|'(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*')@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)])$)";
-
     fileInput = React.createRef();
-
-    registrationInput = [
-      {
-        name: 'Name',
-        id: 'name',
-        type: 'text',
-        placeholder: 'Your name',
-        helperText: '',
-        minlength: '2',
-        maxlength: '60',
-      },
-      {
-        name: 'Email',
-        type: 'email',
-        id: 'email',
-        placeholder: 'Your email',
-        pattern: this.emailPattern,
-        helperText: '',
-        minlength: '2',
-        maxlength: '100',
-      },
-      {
-        name: 'Phone number',
-        type: 'tel',
-        id: 'phone',
-        placeholder: '+380 XX XXX XX XX',
-        pattern: '^[+]{0,1}380([0-9]{9})$',
-        helperText: 'Enter phone number in open format',
-        minlength: '13',
-        maxlength: '13',
-      },
-    ];
 
     state = {
       users: [],
-      isLoding: '',
+      isLoading: '',
       positions: [],
       urlNextUsersPage: '',
       user: {
@@ -67,6 +32,12 @@ export default class extends React.Component {
     componentDidMount() {
       this.getUsersRequest();
       this.getPositionsRequest();
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+      if (this.state !== prevState) {
+        this.render();
+      }
     }
 
     getPositionsRequest = () => {
@@ -127,9 +98,6 @@ export default class extends React.Component {
       const newState = { ...this.state };
       const fileField = this.fileInput.current.files[0];
 
-      newState.errors.photo = '';
-      this.setState(newState);
-
       if (!fileField) {
         newState.user.photo = '';
         newState.errors.photo = 'Upload your photo';
@@ -175,12 +143,11 @@ export default class extends React.Component {
           Token: token,
         },
       })
-        .then((response) => response.json())
-        .then((data) => data.success);
+        .then((response) => response.json());
     }
 
     hendleRegistration = () => {
-      const { error, errors } = Utils(this.state);
+      const { error, errors } = validateRegData(this.state);
       if (error) {
         this.setState({
           errors,
@@ -196,28 +163,14 @@ export default class extends React.Component {
           }
           this.creatUser(token);
         });
-      return true;
-    }
-
-    usersLoading = () => {
-      if (this.state.isLoading) {
-        return <ProgressCentered />;
-      }
-      return (this.state.users.map((user) => (
-        <div className="main__body_users_card" key={user.id}>
-          <ImageAvatars userImg={user.photo} />
-          <div className="main__body_users_card_name" title={user.name}><span>{user.name}</span></div>
-          <div>{user.position}</div>
-          <div title={user.email}>{user.email}</div>
-          <div>{user.phone}</div>
-        </div>
-      )));
+      return true; // return boolean for correct activation of the dialog box, about success
     }
 
     render() {
       const {
         positions, errors, urlNextUsersPage, user,
       } = this.state;
+
       return (
         <div className="main">
           <div className="main__header">
@@ -280,13 +233,14 @@ export default class extends React.Component {
                 Attention! Sorting users by registration date
               </div>
               <div className="main__body_users_users">
-                {this.usersLoading()}
+                <UserList users={this.state.users} />
               </div>
-              <div className="main__body_users_button">
+              <div className={this.state.isLoading ? 'main__body_users_button_disabled' : 'main__body_users_button'}>
                 <button
                   type="button"
                   onClick={this.hendleShowMoreUsers}
                   style={{ display: urlNextUsersPage === null ? 'none' : '' }}
+                  disabled={this.state.isLoading}
                 >
                   <span>Show more</span>
                 </button>
@@ -296,13 +250,13 @@ export default class extends React.Component {
               errors={errors}
               positions={positions}
               inputRef={this.props.inputRef}
-              registrationInput={this.registrationInput}
               handleChangePosition={this.handleChangePosition}
               handleChangePhoto={this.handleChangePhoto}
               fileInput={this.fileInput}
               user={user}
               hendleRegistration={this.hendleRegistration}
               getUsersRequest={this.getUsersRequest}
+              handleChangeInput={this.handleChangeInput}
             />
             <div className="main__footer">
               <hr />

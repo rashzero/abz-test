@@ -4,19 +4,18 @@ import ButtonAndDialog from './ButtonAndDialog';
 import RegistrationInputs from './RegistrationInputs';
 import './scss/RegistrationForm.scss';
 
-export default function RegistrationForm(props) {
-  const {
-    inputRef,
-    registrationInput,
-    errors,
-    positions,
-    handleChangePosition,
-    handleChangePhoto,
-    fileInput,
-    user,
-    hendleRegistration,
-    getUsersRequest,
-  } = props;
+export default function RegistrationForm({
+  inputRef,
+  errors,
+  positions,
+  handleChangePosition,
+  handleChangePhoto,
+  fileInput,
+  user,
+  hendleRegistration,
+  getUsersRequest,
+  handleChangeInput,
+}) {
   return (
     <div className="main__registration">
       <div className="main__registration_text1">
@@ -30,8 +29,8 @@ export default function RegistrationForm(props) {
         <form>
           <RegistrationInputs
             inputRef={inputRef}
-            registrationInput={registrationInput}
             errors={errors}
+            handleChangeInput={handleChangeInput}
           />
           <div className={errors.position ? 'main__registration_position_error' : 'main__registration_position'}>
             <label>
@@ -78,12 +77,12 @@ export default function RegistrationForm(props) {
 }
 
 RegistrationForm.propTypes = {
-  registrationInput: PropTypes.array,
   errors: PropTypes.object,
   positions: PropTypes.array,
   fileInput: PropTypes.object,
   user: PropTypes.object,
   inputRef: PropTypes.object,
+  handleChangeInput: PropTypes.func.isRequired,
   handleChangePosition: PropTypes.func.isRequired,
   handleChangePhoto: PropTypes.func.isRequired,
   hendleRegistration: PropTypes.func.isRequired,
