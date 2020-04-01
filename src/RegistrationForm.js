@@ -12,7 +12,7 @@ export default function RegistrationForm({
   handleChangePhoto,
   fileInput,
   user,
-  hendleRegistration,
+  handleRegistration,
   getUsersRequest,
   handleChangeInput,
 }) {
@@ -35,8 +35,8 @@ export default function RegistrationForm({
           <div className={errors.position ? 'main__registration_position_error' : 'main__registration_position'}>
             <p>Select your position</p>
             {positions.map((position) => (
-              <label className="main__registration_position_radio" key={position.id}>
-                <input type="radio" name="position" value={position.id} onChange={handleChangePosition} />
+              <label className="main__registration_position_radio" key={position.id} htmlFor={position.id}>
+                <input type="radio" name="position" value={position.id} onChange={handleChangePosition} id={position.id} />
                 <span>{position.name}</span>
                 <br />
               </label>
@@ -62,7 +62,7 @@ export default function RegistrationForm({
           </div>
           <div className="main__registration_form_button">
             <ButtonAndDialog
-              hendleRegistration={hendleRegistration}
+              handleRegistration={handleRegistration}
               getUsersRequest={getUsersRequest}
             />
           </div>
@@ -81,6 +81,6 @@ RegistrationForm.propTypes = {
   handleChangeInput: PropTypes.func.isRequired,
   handleChangePosition: PropTypes.func.isRequired,
   handleChangePhoto: PropTypes.func.isRequired,
-  hendleRegistration: PropTypes.func.isRequired,
+  handleRegistration: PropTypes.func.isRequired,
   getUsersRequest: PropTypes.func.isRequired,
 };

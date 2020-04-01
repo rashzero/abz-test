@@ -55,8 +55,8 @@ const DialogActions = withStyles((theme) => ({
 export default function ButtonAndDialog(props) {
   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    const registrationStatus = props.hendleRegistration();
+  const handleClickOpen = async () => {
+    const registrationStatus = await props.handleRegistration();
     if (registrationStatus) {
       setOpen(registrationStatus);
     }
@@ -91,6 +91,6 @@ export default function ButtonAndDialog(props) {
 }
 
 ButtonAndDialog.propTypes = {
-  hendleRegistration: PropTypes.func.isRequired,
+  handleRegistration: PropTypes.func.isRequired,
   getUsersRequest: PropTypes.func.isRequired,
 };

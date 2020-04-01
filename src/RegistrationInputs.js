@@ -34,7 +34,7 @@ const registrationInput = [
 ];
 
 export default function RegistrationInputs(props) {
-  const registrationInputs = registrationInput.map((input) => (
+  return registrationInput.map((input) => (
     <div key={input.id} className={props.errors[input.id] ? 'main__registration_input-error' : ''}>
       {input.name}
       <br />
@@ -52,6 +52,4 @@ export default function RegistrationInputs(props) {
       <span>{props.errors[input.id] ? props.errors[input.id] : input.helperText}</span>
     </div>
   ));
-
-  return registrationInputs;
 }

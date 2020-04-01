@@ -1,19 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
 export default function ListItemFormenu(props) {
   return (
-    <ListItem button key={props.text} style={{ color: (props.tabs === props.text) ? '#007bff' : '' }} onClick={() => props.menuItemChenge(props.text)}>
-      <ListItemText primary={props.text} />
-    </ListItem>
+    <List>
+      {props.children}
+      {props.buttonsNameArr.map((text) => (
+        <ListItem button key={text} style={{ color: (props.activeTab === text) ? '#007bff' : '' }} onClick={() => props.menuItemChange(text)}>
+          <ListItemText primary={text} />
+        </ListItem>
+      ))}
+    </List>
   );
 }
 
 
 ListItemFormenu.propTypes = {
-  text: PropTypes.string.isRequired,
-  tabs: PropTypes.string.isRequired,
-  menuItemChenge: PropTypes.func.isRequired,
+  children: PropTypes.object,
+  activeTab: PropTypes.string.isRequired,
+  menuItemChange: PropTypes.func.isRequired,
+  buttonsNameArr: PropTypes.array.isRequired,
 };

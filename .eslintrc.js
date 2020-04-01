@@ -30,6 +30,8 @@ module.exports = {
         "react/state-in-constructor": 'off',
         "class-methods-use-this": 'off',
         "no-alert": 'off',
+        "react/forbid-prop-types": 'off',
+        "react/require-default-props": 'off',
     }
 
 };

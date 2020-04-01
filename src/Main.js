@@ -62,18 +62,20 @@ export default class Main extends React.Component {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          let newState;
           if (data.success) {
-            this.setState({
+            newState = {
               users: data.users,
               isLoading: false,
               urlNextUsersPage: data.links.next_url,
-            });
+            };
           } else if (data.message === 'Page not found') {
-            this.setState({
+            newState = {
               isLoading: false,
               urlNextUsersPage: null,
-            });
+            };
           }
+          this.setState(newState);
         });
     }
 
@@ -106,7 +108,7 @@ export default class Main extends React.Component {
       this.setState(newState);
     };
 
-    hendleShowMoreUsers = () => {
+    handleShowMoreUsers = () => {
       this.getUsersRequest(this.state.urlNextUsersPage);
     }
 
@@ -139,27 +141,36 @@ export default class Main extends React.Component {
           Token: token,
         },
       })
-        .then((response) => response.json());
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            return true;
+          }
+          const newState = { ...this.state };
+          newState.errors.email = data.message;
+          newState.errors.phone = data.message;
+          this.setState(newState);
+          return false; // return boolean for correct activation of the dialog box, about success
+        });
     }
 
-    hendleRegistration = () => {
+    handleRegistration = () => {
       const { error, errors } = validateRegData(this.state);
       if (error) {
         this.setState({
           errors,
         });
-        return;
+        return false; // return boolean for correct activation of the dialog box, about success
       }
 
-      this.getToken()
+      return this.getToken()
         .then(({ token }) => {
           if (error) {
             alert(error);
-            return;
+            return false; // return boolean for correct activation of the dialog box, about success
           }
-          this.creatUser(token);
+          return this.creatUser(token);
         });
-      return true; // return boolean for correct activation of the dialog box, about success
     }
 
     render() {
@@ -235,7 +246,7 @@ export default class Main extends React.Component {
               <div className={this.state.isLoading ? 'main__body_users_button_disabled' : 'main__body_users_button'}>
                 <button
                   type="button"
-                  onClick={this.hendleShowMoreUsers}
+                  onClick={this.handleShowMoreUsers}
                   style={{ display: urlNextUsersPage === null ? 'none' : '' }}
                   disabled={this.state.isLoading}
                 >
@@ -251,7 +262,7 @@ export default class Main extends React.Component {
               handleChangePhoto={this.handleChangePhoto}
               fileInput={this.fileInput}
               user={user}
-              hendleRegistration={this.hendleRegistration}
+              handleRegistration={this.handleRegistration}
               getUsersRequest={this.getUsersRequest}
               handleChangeInput={this.handleChangeInput}
             />
@@ -266,6 +277,6 @@ export default class Main extends React.Component {
 }
 
 Main.propTypes = {
-  focusRegistration: PropTypes.object,
+  focusRegistration: PropTypes.func,
   inputRef: PropTypes.object,
 };
