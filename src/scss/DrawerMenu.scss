@@ -2,10 +2,12 @@
     padding-left: 30px;
     padding-top: 6px;
     padding-bottom: 17px;
+
     img{
         vertical-align: middle;
         width: 28px;
     }
+
     span{
         padding-left: 9px;
         vertical-align: middle;
@@ -14,9 +16,11 @@
         font-weight: bold;
     }
 }
+
 button{
     height: auto;
     width: auto;
+
     img {
         margin-top: -5px;
         padding-left: 8px;
@@ -30,10 +34,12 @@ button{
     text-align: right;
     margin-right: 20px;
     padding-top: 20px;
+
     .header__tabs-panel_mobail{
         vertical-align: middle;
     }
 }
+
 @media (max-width: 767px){
     .header__logo{
         padding-left: 16px;

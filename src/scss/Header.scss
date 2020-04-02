@@ -2,10 +2,12 @@ font-face {
     font-family: 'Open Sans';
     src: url('../static/OpenSans-Regular.ttf'),
 }
+
 body{
     font-family: 'Open Sans';
     margin: auto;
     padding: 0;
+
     .header{
         position: fixed;
         width: 100%;
@@ -16,13 +18,16 @@ body{
         grid-auto-columns: minmax(150px, auto);
         grid-auto-rows: minmax(40px, auto);
         background-color: #fff;
+
         .header__logo{
             padding-left: 31px;
             padding-top: 15px;
+
             img{
                 vertical-align: middle;
                 height: 28px;
             }
+
             span{
                 padding-left: 9px;
                 vertical-align: middle;
@@ -31,11 +36,13 @@ body{
                 font-weight: bold;
             }
         }
+
         .header__tabs-panel{
             margin-right: 15px;
             width: auto;
             text-align: right;
             padding-top: 1px;
+
             button{
                 width: auto;
                 height: 100%;
@@ -51,9 +58,11 @@ body{
                 font-style: 400px;
                 font-family: 'Open Sans';
             }
+
             button:hover {
                 color: #ef5b4c; 
             }
+
             button:active {
                 color: #007bff;
             }
@@ -64,6 +73,7 @@ body{
             text-align: right;
             margin-right: 20px;
             padding-top: 20px;
+            
             .header__tabs-panel_mobail{
                 vertical-align: middle;
             }
@@ -80,24 +90,26 @@ body{
                 display: none;
             }
         }
-
     }
+
     @media (max-width: 767px){
         .header{
             height: 40px;
+
             .header__logo{
                 padding-left: 16px;
                 padding-top: 6px;
+
                 img{
                     vertical-align: middle;
                     height: 28px;
                 }
             }
+
             .header__tabs-panel_mobail{
                 width: 100%;
                 padding-top: 10px;
             }
-        }
-        
+        } 
     }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import imgLaptop from './static/man-laptop-v1.svg';
-import RegistratioForm from './RegistrationForm';
+import RegistrationForm from './RegistrationForm';
 import UserList from './UserList';
-import { validateRegData } from './Utils';
+import { validateRegData } from './utils';
 import './scss/Main.scss';
 
 export default class Main extends React.Component {
@@ -35,6 +35,13 @@ export default class Main extends React.Component {
       this.getPositionsRequest();
     }
 
+    get urlForDesctop() {
+      const baseUrl = 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=';
+      const isMobile = window.innerWidth < 768;
+      const usersPerPage = isMobile ? 3 : 6;
+      return `${baseUrl}${usersPerPage}`;
+    }
+
     getPositionsRequest = () => {
       fetch('https://frontend-test-assignment-api.abz.agency/api/v1/positions')
         .then((response) => response.json())
@@ -43,13 +50,6 @@ export default class Main extends React.Component {
             positions: data.positions,
           });
         });
-    }
-
-    get urlForDesctop() {
-      const baseUrl = 'https://frontend-test-assignment-api.abz.agency/api/v1/users?page=1&count=';
-      const isMobile = window.innerWidth < 768;
-      const usersPerPage = isMobile ? 3 : 6;
-      return `${baseUrl}${usersPerPage}`;
     }
 
     getUsersRequest = (url = this.urlForDesctop) => {
@@ -143,31 +143,29 @@ export default class Main extends React.Component {
       })
         .then((response) => response.json())
         .then((data) => {
-          if (data.success) {
-            return true;
+          if (!data.success) {
+            const newState = { ...this.state };
+            newState.errors.email = data.message;
+            newState.errors.phone = data.message;
+            this.setState(newState);
           }
-          const newState = { ...this.state };
-          newState.errors.email = data.message;
-          newState.errors.phone = data.message;
-          this.setState(newState);
-          return false; // return boolean for correct activation of the dialog box, about success
         });
     }
 
     handleRegistration = () => {
-      const { error, errors } = validateRegData(this.state);
-      if (error) {
+      const { error: errValid, errors } = validateRegData(this.state);
+      if (errValid) {
         this.setState({
           errors,
         });
-        return false; // return boolean for correct activation of the dialog box, about success
+        return false; // boolean is returned for correct activation of the dialog box
       }
 
       return this.getToken()
-        .then(({ token }) => {
-          if (error) {
-            alert(error);
-            return false; // return boolean for correct activation of the dialog box, about success
+        .then(({ token, error: tokenErr }) => {
+          if (tokenErr) {
+            alert(tokenErr);
+            return { error: 'Token hasn\'t got' };
           }
           return this.creatUser(token);
         });
@@ -205,7 +203,7 @@ export default class Main extends React.Component {
           </div>
           <div className="main__body">
             <div className="main__head_text">
-              Let's get acquainted
+              Let&apos;s get acquainted
             </div>
             <div className="main__body_container">
               <div className="main__body_container_img">
@@ -254,7 +252,7 @@ export default class Main extends React.Component {
                 </button>
               </div>
             </div>
-            <RegistratioForm
+            <RegistrationForm
               errors={errors}
               positions={positions}
               inputRef={this.props.inputRef}

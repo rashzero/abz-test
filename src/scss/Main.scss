@@ -9,14 +9,17 @@ font-face {
     font-family: 'Open Sans';
     src: url('../static/OpenSans-Regular.ttf'),
 }
+
 body{
     margin: auto;
     padding: 0;
     max-width: 2560px;
+
     .main{
         font-family: 'Open Sans';
         padding-top: 60px;
         margin: auto;
+
         button{
             margin-top: 13px;
             width: 210px;
@@ -29,10 +32,12 @@ body{
             color: #ffffff;
             outline: none;
             cursor: pointer;
+
             .button__span{
                 font-size: 16px;
                 line-height: 24px;
             }
+
             span{
                 font-family: 'Open Sans';
                 font-size: 16px;
@@ -40,14 +45,17 @@ body{
                 letter-spacing: 0.2px;
             }
         }
+
         button:hover {
             background-color: #ff0404;
         }
+
         .main__head_text{
             padding-top: 100px;
             text-align: center;
             @extend %head-text;
         }
+
         .main__header{
             height: 600px;
             background-image: url('../static/banner-photo.jpg');
@@ -57,46 +65,55 @@ body{
             grid-auto-rows: minmax(100px, auto);
             color: #ffffff;
             padding-left: 30px;
+
             .main__header_text1{
                 width: 520px;
                 padding-top: 107px;
                 letter-spacing: -0.65px;
                 @extend %head-text;
+
                 span{
                     letter-spacing: -0.4px;
                 }
             }
+
             .main__header_text2{
                 width: 530px;
                 font-weight: 400;
                 line-height: 24px;
                 padding-top: 25px;
             }
+
             .main__header_text2-alt{
                 display: none;
             }
         }
+
         .main__body{
             max-width: 1170px;
             padding-top: 52px;
             margin: auto;
+
             .main__head_text{
                 letter-spacing: -0.6px;
                 text-align: center;
                 @extend %head-text;
             }
+
             .main__body_container{
                 margin-top: 50px;
                 margin-bottom: 145px;
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(300px, auto));
                 grid-auto-columns: minmax(100px, auto);
+
                 .main__body_container_img{
                     img{
                         padding: 21px 10px 0 54px;
                         width: 340px;
                     }
                 }
+
                 .main__body_container_content{
                     display: grid;
                     grid-template-rows: repeat(4, auto);
@@ -105,17 +122,20 @@ body{
                     margin-right: 15px;
                     padding-left: 25px;
                     text-align: justify;
+
                     .main__body_container_content_text1{
                         font-size: 24px;
                         line-height: 29px;
                         padding-top: 17px;
                         padding-bottom: 19px;
                     }
+
                     .main__body_container_content_text2{
                         padding-right: 14.8px;
                         padding-top: 1px;
                         line-height: 24px;
                     }
+
                     .main__body_container_content_text3{
                         padding-right: 14.8px;
                         padding-top: 24px;
@@ -137,40 +157,48 @@ body{
                         outline: none;
                         cursor: pointer;
                     }
+
                     button:hover {
                         color: #ff0404;
                     }
                 }
             }
+
             .main__body_users{
                 background-color: #f9f9f3;
                 padding-bottom: 100px;
+
                 .main__body_users_text1{
                     padding-top: 153px;
                     margin-right: 1px;
                     text-align: center;
                     @extend %head-text;
                 }
+
                 .main__body_users_text2{
                     padding-top: 17px;
                     font-size: 16px;
                     line-height: 24px;
                     text-align: center;
                 }
+
                 .main__body_users_users{
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
                     grid-auto-columns: minmax(100px, auto);
                     margin: 38px 15px 0 15px;
+
                     .main__body_users_card{
                         text-align: center;
                         margin: 25px auto;
                         width: 200px;
                         text-align: center;
+
                         .MuiAvatar-root{
                             padding: 0;
                             margin: auto;
                         }
+
                         .main__body_users_card_name{
                             padding: 0;
                             margin-top: 20px;
@@ -180,6 +208,7 @@ body{
                             overflow: hidden;
                             text-overflow: ellipsis;
                         }
+
                         div{
                             overflow: hidden;
                             margin-top: 12px;
@@ -188,20 +217,22 @@ body{
                         }
                     }
                 }
+
                 .main__body_users_button{
                     text-align: center;
                 }
 
                 .main__body_users_button_disabled{
                     text-align: center;
+
                     button{
                         background-color: #bbbbbb;
                         color: #727272;
                     }
                 }
             }
-            
         }
+
         .main__footer{
             padding-top: 161px;
             padding-bottom: 10px;
@@ -215,6 +246,7 @@ body{
                 display: grid;
                 grid-template-rows: 200px 200px 100px;
                 margin-bottom: -100px;
+
                 .main__header_text1{
                     width: 410px;
                     padding-top: 59px;
@@ -222,53 +254,65 @@ body{
                     letter-spacing: -0.65px;
                     line-height: 44px;
                 }
+
                 .main__header_text2{
                     width: 450px;
                     padding-top: 19px;
                 }
+
                 .main__header_text2-alt{
                     display: none;
                 }
+
                 button{
                     margin-top: -3px;
                 }
             }
+
             .main__body{
                 margin-top: -100px;
                 position: relative;
                 background-color: #fff;
+
                 .main__head_text{
                     padding-top: 60px;
                     text-align: center;
                     font-size: 40px;
                     line-height: 44px;
                 }
+
                 .main__body_container{
                     margin-top: 50px;
                     margin-bottom: 107px;
                     display: grid;
                     grid-template-columns: repeat(auto-fit, minmax(150px, auto));
                     grid-auto-columns: minmax(100px, auto);
+
                     .main__body_container_img{
                         img{
                             padding: 22px 10px 0 30px;
                             width: 247px;
                         }
                     }
+
                     .main__body_container_content{
                         margin-left: 5px;
                         margin-right: 16px;
                         padding-left: 15px;
+
                         .main__body_container_content_text2{
                             padding-right: 15px;
                         }
+
                         .main__body_container_content_text3{
                             padding-right: 9px;
                         }
                     }
                 }
+
                 .main__body_users{
                     padding-bottom: 118px;
+
                     .main__body_users_text1{
                         padding-top: 113px;
                         margin-right: 1px;
@@ -276,12 +320,14 @@ body{
                         font-size: 40px;
                         line-height: 44px;
                     }
+
                     .main__body_users_text2{
                         padding-top: 17px;
                         font-size: 16px;
                         line-height: 24px;
                         text-align: center;
                     }
+
                     .main__body_users_users{
                         display: grid;
                         grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
@@ -289,6 +335,7 @@ body{
                         margin: 38px 15px 0 15px;
                     }
                 }
+
                 .main__footer{
                     padding-top: 114px;
                     padding-left: 9px;
@@ -296,9 +343,11 @@ body{
             }
         }
     }
+
     @media(max-width: 767px){
         .main{
             padding-top: 40px;
+
             .main__header{
                 height: 500px;
                 background-image: url('../static/banner-photo.jpg');
@@ -313,6 +362,7 @@ body{
                 padding-left: 10px;
                 padding-right: 10px;
                 text-align: center;
+
                 .main__header_text1{
                     width: 93%;
                     margin: 0 auto 0 auto;
@@ -320,13 +370,16 @@ body{
                     font-size: 30px;
                     letter-spacing: -0.65px;
                     line-height: 34px;
+
                     span{
                         letter-spacing: -0.4px;
                     }
                 }
+
                 .main__header_text2{
                     display: none;
                 }
+
                 .main__header_text2-alt{
                     display: inherit;
                     width: 100%;
@@ -335,10 +388,12 @@ body{
                     line-height: 24px;
                     padding-top: 20px;
                 }
+
                 button{
                     margin-top: 27px;
                 }
             }
+
             .main__body{
                 .main__head_text{
                     padding-top: 22px;
@@ -347,36 +402,44 @@ body{
                     line-height: 34px;
                     letter-spacing: -0.3px;
                 }
+
                 .main__body_container{
                     margin: 10px 12px 66px 12px;
                     display: grid;
                     grid-template-columns: 1fr;
                     grid-template-rows: repeat(auto-fit, minmax(150px, auto));
+
                     .main__body_container_img{
                         text-align: center;
+
                         img{
                             padding: 24px 10px 0 10px;
                             width: 290px;
                         }
                     }
+
                     .main__body_container_content{
                         margin: auto;
                         padding-left: 0px;
                         text-align: center;
+
                         .main__body_container_content_text1{
                             padding-top: 29px;
                             text-align: center;
                         }
+
                         .main__body_container_content_text2{
                             padding-right: 0.7px;
                             padding-left: 0.7px;
                             text-align: justify;
                         }
+
                         .main__body_container_content_text3{
                             padding-right: 0.7px;
                             padding-left: 0.7px;
                             text-align: justify;
                         }
+
                         button{
                             margin-top: 21px;
                         }
@@ -385,6 +448,7 @@ body{
 
                 .main__body_users{
                     padding-bottom: 80px;
+
                     .main__body_users_text1{
                         padding-top: 75px;
                         margin-right: 1px;
@@ -392,29 +456,35 @@ body{
                         font-size: 30px;
                         line-height: 34px;
                     }
+
                     .main__body_users_text2{
                         padding-top: 9px;
                         font-size: 16px;
                         line-height: 24px;
                         text-align: center;
                     }
+
                     .main__body_users_users{
                         margin: 0px 15px 0 15px;
+
                         .main__body_users_card{
                             .main__body_users_card_name{
                                 padding: 0;
                                 margin-top: 12px;
                                 margin-bottom: 10px;
                             }
+
                             div{
                                 margin-top: 10px;
                             }
                         }
                     }
+
                     .main__body_users_button{
                         margin-top: 8px;
                     }
                 }
+
                 .main__footer{
                     padding-top: 94px;
                     padding-bottom: 10px;
@@ -423,6 +493,5 @@ body{
                 }
             }
         }
-    }
-    
+    } 
 }

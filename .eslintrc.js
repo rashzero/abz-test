@@ -32,6 +32,7 @@ module.exports = {
         "no-alert": 'off',
         "react/forbid-prop-types": 'off',
         "react/require-default-props": 'off',
-    }
+        "react/jsx-props-no-spreading": 'off',
 
+    }
 };

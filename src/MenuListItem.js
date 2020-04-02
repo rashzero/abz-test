@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 
-export default function ListItemFormenu(props) {
+export default function MenuListItem(props) {
   return (
     <List>
       {props.children}
@@ -18,7 +18,7 @@ export default function ListItemFormenu(props) {
 }
 
 
-ListItemFormenu.propTypes = {
+MenuListItem.propTypes = {
   children: PropTypes.object,
   activeTab: PropTypes.string.isRequired,
   menuItemChange: PropTypes.func.isRequired,

@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Divider from '@material-ui/core/Divider';
 import favicon from './static/favicon-32x32.png';
-import ListItemForMenu from './ListItemForMenu';
+import MenuListItem from './MenuListItem';
 import './scss/DrawerMenu.scss';
 
 const useStyles = makeStyles({
@@ -20,8 +20,14 @@ const menuTextBloc1 = ['About me', 'Relationships', 'Users', 'Sign up', 'Terms a
 const menuTextBloc2 = ['How it works', 'Partnership', 'Help', 'Leave testimonisl', 'Contact us'];
 const menuTextBloc3 = ['Articles', 'Our news', 'Testimonials', 'Licenses', 'Privacy Policy'];
 
-export default function ListForMenu(props) {
+export default function MenuList(props) {
+  const [activeTab, setActiveTab] = React.useState('');
   const classes = useStyles();
+
+  const menuItemChange = (text) => {
+    setActiveTab(text);
+    props.focusRegistration();
+  };
 
   return (
     <div
@@ -32,9 +38,9 @@ export default function ListForMenu(props) {
       onClick={props.toggleDrawer(false)}
       onKeyDown={props.toggleDrawer(false)}
     >
-      <ListItemForMenu
-        activeTab={props.activeTab}
-        menuItemChange={props.menuItemChange}
+      <MenuListItem
+        activeTab={activeTab}
+        menuItemChange={menuItemChange}
         buttonsNameArr={menuTextBloc1}
       >
         <div className="header__logo">
@@ -43,15 +49,15 @@ export default function ListForMenu(props) {
             TESTTASK
           </span>
         </div>
-      </ListItemForMenu>
+      </MenuListItem>
       <Divider />
-      <ListItemForMenu
+      <MenuListItem
         activeTab={props.activeTab}
         menuItemChange={props.menuItemChange}
         buttonsNameArr={menuTextBloc2}
       />
       <Divider />
-      <ListItemForMenu
+      <MenuListItem
         activeTab={props.activeTab}
         menuItemChange={props.menuItemChange}
         buttonsNameArr={menuTextBloc3}
@@ -60,8 +66,9 @@ export default function ListForMenu(props) {
   );
 }
 
-ListForMenu.propTypes = {
+MenuList.propTypes = {
   toggleDrawer: PropTypes.func.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  menuItemChange: PropTypes.func.isRequired,
+  activeTab: PropTypes.string,
+  menuItemChange: PropTypes.func,
+  focusRegistration: PropTypes.func,
 };
