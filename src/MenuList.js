@@ -21,13 +21,7 @@ const menuTextBloc2 = ['How it works', 'Partnership', 'Help', 'Leave testimonisl
 const menuTextBloc3 = ['Articles', 'Our news', 'Testimonials', 'Licenses', 'Privacy Policy'];
 
 export default function MenuList(props) {
-  const [activeTab, setActiveTab] = React.useState('');
   const classes = useStyles();
-
-  const menuItemChange = (text) => {
-    setActiveTab(text);
-    props.focusRegistration();
-  };
 
   return (
     <div
@@ -39,8 +33,8 @@ export default function MenuList(props) {
       onKeyDown={props.toggleDrawer(false)}
     >
       <MenuListItem
-        activeTab={activeTab}
-        menuItemChange={menuItemChange}
+        activeTab={props.activeTab}
+        menuItemChange={props.menuItemChange}
         buttonsNameArr={menuTextBloc1}
       >
         <div className="header__logo">
@@ -68,7 +62,6 @@ export default function MenuList(props) {
 
 MenuList.propTypes = {
   toggleDrawer: PropTypes.func.isRequired,
-  activeTab: PropTypes.string,
-  menuItemChange: PropTypes.func,
-  focusRegistration: PropTypes.func,
+  activeTab: PropTypes.string.isRequired,
+  menuItemChange: PropTypes.func.isRequired,
 };

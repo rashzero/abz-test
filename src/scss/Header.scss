@@ -10,6 +10,7 @@ body{
 
     .header{
         position: fixed;
+        z-index: 2;
         width: 100%;
         max-width: 2560px;
         height: 60px;
@@ -95,6 +96,7 @@ body{
     @media (max-width: 767px){
         .header{
             height: 40px;
+            position: fixed;
 
             .header__logo{
                 padding-left: 16px;
