@@ -12,8 +12,8 @@ const useStyles = makeStyles((theme) => ({
   },
   large: {
     position: 'static',
-    width: theme.spacing(9),
-    height: theme.spacing(9),
+    width: theme.spacing(8.75),
+    height: theme.spacing(8.75),
   },
 }));
 
