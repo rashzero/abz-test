@@ -61,6 +61,7 @@ export default function ButtonAndDialog(props) {
       setOpen(registrationStatus);
     }
   };
+
   const handleClose = () => {
     setOpen(false);
     props.getUsersRequest();

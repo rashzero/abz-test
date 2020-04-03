@@ -17,7 +17,6 @@ export default function MenuListItem(props) {
   );
 }
 
-
 MenuListItem.propTypes = {
   children: PropTypes.object,
   activeTab: PropTypes.string.isRequired,
