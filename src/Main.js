@@ -149,6 +149,7 @@ export default class Main extends React.Component {
             newState.errors.phone = data.message;
             this.setState(newState);
           }
+          return data.success;
         });
     }
 
