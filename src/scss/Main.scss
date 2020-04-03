@@ -197,6 +197,11 @@ body{
                         .MuiAvatar-root{
                             padding: 0;
                             margin: auto;
+
+                            img{
+                                width: 70px;
+                                height: 70px;
+                            }
                         }
 
                         .main__body_users_card_name{
